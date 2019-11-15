@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test
+  labels:
+    app: test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: test
+      labels:
+        app: test
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: test
+        image: newcontainer0210.azurecr.io/samples/dcokerlinuximage:latest
+        ports:
+          - containerPort: 80		
+      imagePullSecrets:
+      - name: regcred
+
+  selector:
+    matchLabels:
+      app: test
